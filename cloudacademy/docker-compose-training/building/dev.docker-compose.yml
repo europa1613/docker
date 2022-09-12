@@ -1,0 +1,26 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: dev.dockerfile
+    image: accumulator
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=app-db
+    volumes:
+      - './src:/src/app'
+    depends_on:
+      - app-db
+    networks:
+      - backend
+  app-db:
+    image: mongo:3
+    networks:
+      - backend
+networks:
+  backend:
+
+  
